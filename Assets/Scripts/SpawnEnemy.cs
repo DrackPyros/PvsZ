@@ -33,7 +33,6 @@ public class SpawnEnemy : MonoBehaviour
     
     void Spawn(Transform child){
         Vector3 child_position = child.transform.position;
-        //print(child_position);
 
         float aux = myObjects.Length;
         int whichItem = (int)Random.Range(0f, aux);

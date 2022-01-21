@@ -5,16 +5,17 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private GameController gameController;
-    
+    private Animator animator;
     private int speed;
     
     void Start()
     {
         gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
+        animator = GetComponent<Animator>();
         if (gameController.diff == 1)
             speed = 2;
         else if (gameController.diff == 2)
-            speed = 3;
+            speed = 4;
 
     }
 
@@ -26,6 +27,8 @@ public class EnemyMovement : MonoBehaviour
         }
         else
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        
+        animator.SetFloat("Speed_f", speed);
     }
 
     void OnTriggerEnter(Collider other){
