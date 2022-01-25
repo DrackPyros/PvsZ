@@ -6,23 +6,26 @@ public class PlayerControll : MonoBehaviour
 {
     private int pos = 0;
     private float [] spawnpoints; 
-    private Rigidbody rig;
     private float a; //Angle Y axis
     private float f; //Force Z axis
+    public GameObject playerPrefab;
+    private GameObject player;
+    public static bool alive = false;
+    private GameController gameController;
     
     void Start(){
-        rig = GetComponent<Rigidbody>();
-        spawnpoints = GameObject.Find("EventSystem").GetComponent<PlayerGenerator>().spawnpoints;
+        gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
+        player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        spawnpoints = GameObject.Find("EventSystem").GetComponent<PlayerGenerator>().GenerateSpawnPoints();
     }
     void Update()
     {
-        a = GameObject.Find("EventSystem").GetComponent<GameController>().a.value;
-        f = GameObject.Find("EventSystem").GetComponent<GameController>().f.value;
+        a = gameController.a.value;
+        f = gameController.f.value;
 
         if (Input.GetKeyDown(KeyCode.Space)){
-            print(f + " -- " + a);
-            //transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            rig.AddForce(0, a, f, ForceMode.Impulse);
+            //print(f + " -- " + a);
+            player.GetComponent<ProyectileBehabiour>().Implulse(a, f);
         }
         if (Input.GetKeyDown(KeyCode.A)){pos--;}
         else if (Input.GetKeyDown(KeyCode.D)){pos++;}
@@ -31,13 +34,14 @@ public class PlayerControll : MonoBehaviour
         else if (pos >= spawnpoints.Length){pos = 0;}
 
         transform.position = new Vector3(spawnpoints[pos], 1, -20);
-        //Separar en Jugador y proyectil
     }
-    void OnTriggerEnter(Collider other){
-        if (other.CompareTag("Board"))
+
+    void FixedUpdate(){
+        if (!alive)
         {
-            Destroy(gameObject);
-            PlayerGenerator.alive = false;
+            player.transform.position = new Vector3(spawnpoints[pos], 1, -20);
+            alive = true;
         }
     }
+    
 }

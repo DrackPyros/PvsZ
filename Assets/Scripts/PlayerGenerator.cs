@@ -7,24 +7,14 @@ public class PlayerGenerator : MonoBehaviour
     private SpawnEnemy spawnP;
     private GameController gameController;
     public float [] spawnpoints; 
-    private Rigidbody rigidBody;
-    public static bool alive = false;
+    
     void Start()
     {
-        spawnP = GameObject.Find("SpawnerP").GetComponent<SpawnEnemy>();
         gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
-        rigidBody = GetComponent<Rigidbody>();
-        spawnpoints = GenerateSpawnPoints(spawnP);
-    }
-    void FixedUpdate(){
-        if (!alive)
-        {
-            //generate player ball
-            alive = true;
-        }
     }
 
-    float[] GenerateSpawnPoints(SpawnEnemy spawnP){
+    public float[] GenerateSpawnPoints(){
+        spawnP = GameObject.Find("SpawnerP").GetComponent<SpawnEnemy>();
         float [] coords = new float [8];
         int aux = 0;
         float temp;
