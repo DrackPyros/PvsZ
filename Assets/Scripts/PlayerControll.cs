@@ -15,7 +15,7 @@ public class PlayerControll : MonoBehaviour
     
     void Start(){
         gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
-        player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         spawnpoints = GameObject.Find("EventSystem").GetComponent<PlayerGenerator>().GenerateSpawnPoints();
     }
     void Update()
@@ -39,7 +39,8 @@ public class PlayerControll : MonoBehaviour
     void FixedUpdate(){
         if (!alive)
         {
-            player.transform.position = new Vector3(spawnpoints[pos], 1, -20);
+            player = Instantiate(playerPrefab, new Vector3(spawnpoints[pos], 1, -20), Quaternion.identity);
+            //player.transform.position = new Vector3(spawnpoints[pos], 1, -20);
             alive = true;
         }
     }

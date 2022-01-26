@@ -7,16 +7,18 @@ public class ProyectileBehabiour : MonoBehaviour
     private Rigidbody rig;
     void Start()
     {
+        
         rig = gameObject.GetComponent<Rigidbody>();
     }
     public void Implulse (float a, float f)
     {
-        rig.AddForce(0, a, f, ForceMode.Impulse);
+        rig.constraints = RigidbodyConstraints.None;
+        rig.AddForce(0, a+f, f, ForceMode.Impulse);
     }
     void OnTriggerEnter(Collider other){
         if (other.CompareTag("Board"))
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
             PlayerControll.alive = false;
         }
     }
