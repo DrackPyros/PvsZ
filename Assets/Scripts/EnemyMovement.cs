@@ -10,23 +10,18 @@ public class EnemyMovement : MonoBehaviour
     
     void Start()
     {
-        gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
+        gameController = GameObject.Find("EventS").GetComponent<GameController>();
         animator = GetComponent<Animator>();
-        if (gameController.diff == 1)
-            speed = 2;
-        else if (gameController.diff == 2)
-            speed = 4;
-
     }
 
     void Update()
     {
-        if (gameController.diff >= 3)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * Random.Range(2f, 5f));
-        }
-        else
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (gameController.diff == 1)
+            speed = 2;
+        else 
+            speed = gameController.diff;
+
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
         
         animator.SetFloat("Speed_f", speed);
     }

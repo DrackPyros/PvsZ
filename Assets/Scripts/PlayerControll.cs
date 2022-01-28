@@ -14,18 +14,18 @@ public class PlayerControll : MonoBehaviour
     private GameController gameController;
     
     void Start(){
-        gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
-        //player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        spawnpoints = GameObject.Find("EventSystem").GetComponent<PlayerGenerator>().GenerateSpawnPoints();
+        gameController = GameObject.Find("EventS").GetComponent<GameController>();
+        spawnpoints = GameObject.Find("EventS").GetComponent<PlayerGenerator>().GenerateSpawnPoints();
     }
     void Update()
     {
         a = gameController.a.value;
         f = gameController.f.value;
 
-        if (Input.GetKeyDown(KeyCode.Space)){
-            //print(f + " -- " + a);
-            player.GetComponent<ProyectileBehabiour>().Implulse(a, f);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.GetComponent<ProyectileBehaviour>().Implulse(a, f);
+            alive = false;
         }
         if (Input.GetKeyDown(KeyCode.A)){pos--;}
         else if (Input.GetKeyDown(KeyCode.D)){pos++;}
@@ -34,13 +34,15 @@ public class PlayerControll : MonoBehaviour
         else if (pos >= spawnpoints.Length){pos = 0;}
 
         transform.position = new Vector3(spawnpoints[pos], 1, -20);
+        if(alive){
+            player.transform.position = new Vector3(spawnpoints[pos], 1, -20);
+        }
     }
 
     void FixedUpdate(){
         if (!alive)
         {
             player = Instantiate(playerPrefab, new Vector3(spawnpoints[pos], 1, -20), Quaternion.identity);
-            //player.transform.position = new Vector3(spawnpoints[pos], 1, -20);
             alive = true;
         }
     }

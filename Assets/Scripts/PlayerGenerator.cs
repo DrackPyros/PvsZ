@@ -10,7 +10,7 @@ public class PlayerGenerator : MonoBehaviour
     
     void Start()
     {
-        gameController = GameObject.Find("EventSystem").GetComponent<GameController>();
+        gameController = GameObject.Find("EventS").GetComponent<GameController>();
     }
 
     public float[] GenerateSpawnPoints(){
