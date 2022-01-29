@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public Camera MapCamera;
     public GameObject roundsimg;
     public GameObject looseimg;
+    public GameObject screamsound;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour
         {
             looseimg.SetActive(true);
             Time.timeScale = 0;
+            screamsound.GetComponent<ScreemSound>().Play();
         }
         contador++;
     }

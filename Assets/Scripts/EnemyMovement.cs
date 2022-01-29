@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
     private GameController gameController;
     private Animator animator;
     private int speed;
+    public GameObject explosion;
     
     void Start()
     {
@@ -29,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if (other.CompareTag("Player"))
         {
+            Instantiate(explosion, new Vector3(transform.position.x, transform.position.y+3, transform.position.z), transform.rotation);
             Destroy(gameObject);
         }
         if (other.CompareTag("Goal"))
